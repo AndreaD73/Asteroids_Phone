@@ -1,6 +1,6 @@
 window.onload = function() {
   // Costante per la versione (opzionale)
-  const VERSION = "Versione: 1.0";
+  const VERSION = "Versione: 1.3";
 
   // Recupera il contenitore della finestra di gioco e il canvas
   const gameContainer = document.getElementById("gameContainer");
