@@ -42,37 +42,29 @@ body {
 /* Contenitore dei controlli mobile */
 #mobileControls {
   position: fixed;
-  bottom: 10px;
+  bottom: 20px;
   left: 0;
   right: 0;
   z-index: 20;
-  /* I controlli mobile saranno visibili solo su schermi piccoli/touch */
-  display: none;
+  display: none; /* Di default nascosto, verrà mostrato con media query */
 }
 
-/* Mostra i controlli mobile se lo schermo è piccolo */
-@media (max-width: 768px) {
-  #mobileControls {
-    display: block;
-  }
-}
-
-/* Pulsanti mobile */
+/* Pulsanti mobile base */
 .mobile-button {
   background-color: rgba(255, 255, 255, 0.3);
   border: none;
   border-radius: 5px;
   color: white;
-  font-size: 24px;
-  padding: 10px;
-  margin: 5px;
+  font-size: 32px;
+  padding: 20px;
+  margin: 10px;
 }
 
 /* Posiziona il gruppo di frecce in basso a destra */
 #mobileArrows {
   position: fixed;
-  bottom: 10px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,14 +72,21 @@ body {
 
 #mobileRotate {
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  margin-top: 5px;
+  width: 200px;
+  margin-top: 10px;
 }
 
 /* Pulsante per sparare in basso a sinistra */
 #mobileShoot {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
+  bottom: 20px;
+  left: 20px;
+}
+
+/* Mostra i controlli mobile se lo schermo è piccolo o se il dispositivo supporta il touch */
+@media (max-width: 768px) {
+  #mobileControls {
+    display: block;
+  }
 }
