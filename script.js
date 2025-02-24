@@ -1,4 +1,7 @@
 window.onload = function() {
+  // Costante per la versione del gioco
+  const VERSION = "Versione: 1.1";
+
   // Impostazioni canvas e contesto
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
@@ -509,6 +512,12 @@ window.onload = function() {
       ctx.fillText("Livello " + currentLevel, canvas.width / 2, canvas.height / 2);
       ctx.textAlign = "left";
     }
+    // Mostra la versione in alto a destra
+    ctx.fillStyle = "white";
+    ctx.font = "16px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText(VERSION, canvas.width - 10, 20);
+    ctx.textAlign = "left";
   }
 
   function distance(x1, y1, x2, y2) {
