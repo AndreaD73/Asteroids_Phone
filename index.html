@@ -20,22 +20,24 @@
       <button id="restartButton">Ricomincia</button>
     </div>
   </div>
-  
-  <!-- Canvas per il gioco -->
-  <canvas id="gameCanvas"></canvas>
-  
-  <!-- Controlli mobile -->
-  <div id="mobileControls">
-    <div id="mobileArrows">
-      <button id="mobileThrust" class="mobile-button">↑</button>
-      <div id="mobileRotate">
-        <button id="mobileLeft" class="mobile-button">←</button>
-        <button id="mobileRight" class="mobile-button">→</button>
+
+  <!-- Contenitore della finestra di gioco in 16:9 -->
+  <div id="gameContainer">
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Controlli mobile posizionati all'interno del contenitore -->
+    <div id="mobileControls">
+      <div id="mobileArrows">
+        <button id="mobileThrust" class="mobile-button">↑</button>
+        <div id="mobileRotate">
+          <button id="mobileLeft" class="mobile-button">←</button>
+          <button id="mobileRight" class="mobile-button">→</button>
+        </div>
       </div>
+      <button id="mobileShoot" class="mobile-button">Sparo</button>
     </div>
-    <button id="mobileShoot" class="mobile-button">Sparo</button>
   </div>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
