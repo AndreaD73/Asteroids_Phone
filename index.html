@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Overlay per le schermate iniziali e di game over -->
+  <!-- Overlay per schermate di start e game over -->
   <div id="overlay">
     <div id="startScreen">
       <h1>INSERT COIN</h1>
@@ -21,23 +21,19 @@
     </div>
   </div>
   
-  <!-- Contenitore della finestra di gioco con rapporto 16:9 -->
-  <div id="gameContainer">
-    <canvas id="gameCanvas"></canvas>
-    
-    <!-- Controlli mobile -->
-    <div id="mobileControls">
-      <div id="mobileArrows">
-        <button id="mobileThrust" class="mobile-button">↑</button>
-        <div id="mobileRotate">
-          <button id="mobileLeft" class="mobile-button">←</button>
-          <button id="mobileRight" class="mobile-button">→</button>
-        </div>
+  <!-- Canvas per il gioco -->
+  <canvas id="gameCanvas"></canvas>
+  
+  <!-- Controlli mobile (per dispositivi touch) -->
+  <div id="mobileControls">
+    <div id="mobileArrows">
+      <button id="mobileThrust" class="mobile-button">↑</button>
+      <div id="mobileRotate">
+        <button id="mobileLeft" class="mobile-button">←</button>
+        <button id="mobileRight" class="mobile-button">→</button>
       </div>
-      <button id="mobileShoot" class="mobile-button">Sparo</button>
-      <!-- Pulsante per attivare/disattivare il fullscreen -->
-      <button id="fullScreenButton" class="mobile-button">Full Screen</button>
     </div>
+    <button id="mobileShoot" class="mobile-button">Sparo</button>
   </div>
   
   <script src="script.js"></script>
