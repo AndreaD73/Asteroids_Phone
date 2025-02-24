@@ -20,12 +20,12 @@
       <button id="restartButton">Ricomincia</button>
     </div>
   </div>
-
-  <!-- Contenitore della finestra di gioco in 16:9 -->
+  
+  <!-- Contenitore della finestra di gioco con rapporto 16:9 -->
   <div id="gameContainer">
     <canvas id="gameCanvas"></canvas>
     
-    <!-- Controlli mobile posizionati all'interno del contenitore -->
+    <!-- Controlli mobile -->
     <div id="mobileControls">
       <div id="mobileArrows">
         <button id="mobileThrust" class="mobile-button">↑</button>
@@ -35,9 +35,11 @@
         </div>
       </div>
       <button id="mobileShoot" class="mobile-button">Sparo</button>
+      <!-- Pulsante per attivare/disattivare il fullscreen -->
+      <button id="fullScreenButton" class="mobile-button">Full Screen</button>
     </div>
   </div>
-
+  
   <script src="script.js"></script>
 </body>
 </html>
