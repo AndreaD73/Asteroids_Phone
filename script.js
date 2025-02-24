@@ -1,13 +1,14 @@
 window.onload = function() {
-  const VERSION = "Versione: 1.4";
+  // Costante per la versione (opzionale)
+  const VERSION = "Versione: 1.0";
   
-  // Recupera il contenitore e il canvas
-  const gameContainer = document.getElementById("gameContainer");
+  // Imposta il canvas a dimensioni schermo intero
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-  canvas.width = gameContainer.clientWidth;
-  canvas.height = gameContainer.clientHeight;
-
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  // Stato del gioco: "start", "playing", "gameover", "levelTransition"
   let gameState = "start";
   let numPlayers = 0;
   let players = [];
@@ -24,11 +25,11 @@ window.onload = function() {
   const baseAlienSpawnInterval = 15000;
   let levelTransitionTimer = 0;
   const levelTransitionDuration = 2000;
-
+  
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
+  
+  // Audio
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
   function playSound(frequency, duration, type = "sine", volume = 0.2) {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
@@ -40,7 +41,7 @@ window.onload = function() {
     oscillator.start();
     oscillator.stop(audioCtx.currentTime + duration);
   }
-
+  
   function laserSound() {
     playSound(1000, 0.05, "sawtooth", 0.3);
   }
@@ -56,7 +57,7 @@ window.onload = function() {
   function bonusSound() {
     playSound(600, 0.2, "sine", 0.3);
   }
-
+  
   class Explosion {
     constructor(x, y) {
       this.x = x;
@@ -83,7 +84,7 @@ window.onload = function() {
       return this.elapsed >= this.duration;
     }
   }
-
+  
   class Ship {
     constructor(x, y, color, controls) {
       this.x = x;
@@ -155,7 +156,7 @@ window.onload = function() {
       ctx.restore();
     }
   }
-
+  
   class Bullet {
     constructor(x, y, angle, speed, color, owner) {
       this.x = x;
@@ -183,7 +184,7 @@ window.onload = function() {
       ctx.fill();
     }
   }
-
+  
   class Asteroid {
     constructor(x, y, radius, level = 1) {
       this.x = x;
@@ -229,7 +230,7 @@ window.onload = function() {
       ctx.restore();
     }
   }
-
+  
   class AlienShip {
     constructor() {
       this.width = 40;
@@ -273,11 +274,11 @@ window.onload = function() {
              (this.direction === -1 && this.x + this.width < 0);
     }
   }
-
+  
   const keyState = {};
   window.addEventListener("keydown", e => { keyState[e.key] = true; });
   window.addEventListener("keyup", e => { keyState[e.key] = false; });
-
+  
   function startGameWithPlayers(n) {
     numPlayers = n;
     console.log("Avvio gioco con " + n + " giocatore/i");
@@ -314,10 +315,10 @@ window.onload = function() {
     lastTime = performance.now();
     requestAnimationFrame(gameLoop);
   }
-
+  
   document.getElementById("onePlayer").addEventListener("click", () => startGameWithPlayers(1));
   document.getElementById("twoPlayers").addEventListener("click", () => startGameWithPlayers(2));
-
+  
   function setupMobileControls() {
     const mobileLeft = document.getElementById("mobileLeft");
     const mobileRight = document.getElementById("mobileRight");
@@ -345,7 +346,7 @@ window.onload = function() {
     mobileShoot.addEventListener("mouseup", e => { e.preventDefault(); keyState[" "] = false; });
   }
   if (isTouchDevice || window.innerWidth < 768) setupMobileControls();
-
+  
   function startLevel() {
     const numAsteroids = 4 + currentLevel;
     for (let i = 0; i < numAsteroids; i++) {
@@ -357,7 +358,7 @@ window.onload = function() {
     gameState = "levelTransition";
     levelTransitionTimer = levelTransitionDuration;
   }
-
+  
   function gameLoop(timestamp) {
     const deltaTime = timestamp - lastTime;
     lastTime = timestamp;
@@ -367,7 +368,7 @@ window.onload = function() {
       requestAnimationFrame(gameLoop);
     }
   }
-
+  
   function update(deltaTime) {
     if (gameState === "levelTransition") {
       levelTransitionTimer -= deltaTime;
@@ -409,7 +410,7 @@ window.onload = function() {
         });
       }
     });
-
+  
     bullets.forEach((bullet, bIndex) => {
       if (bullet.owner === "player") {
         aliens.forEach((alien, aIndex) => {
@@ -423,7 +424,7 @@ window.onload = function() {
         });
       }
     });
-
+  
     bullets.forEach((bullet, bIndex) => {
       if (bullet.owner === "alien") {
         players.forEach(ship => {
@@ -444,7 +445,7 @@ window.onload = function() {
         });
       }
     });
-
+  
     players.forEach(ship => {
       asteroids.forEach((asteroid) => {
         if (distance(ship.x, ship.y, asteroid.x, asteroid.y) < asteroid.radius + ship.radius) {
@@ -462,20 +463,20 @@ window.onload = function() {
         }
       });
     });
-
+  
     alienSpawnTimer += deltaTime;
     let alienSpawnInterval = Math.max(baseAlienSpawnInterval - (currentLevel - 1) * 500, 5000);
     if (alienSpawnTimer > alienSpawnInterval) {
       alienSpawnTimer = 0;
       aliens.push(new AlienShip());
     }
-
+  
     if (gameState === "playing" && asteroids.length === 0) {
       currentLevel++;
       startLevel();
     }
   }
-
+  
   function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     players.forEach(ship => ship.draw());
@@ -496,17 +497,18 @@ window.onload = function() {
       ctx.fillText("Livello " + currentLevel, canvas.width / 2, canvas.height / 2);
       ctx.textAlign = "left";
     }
+    // Versione in alto a destra
     ctx.fillStyle = "white";
     ctx.font = "16px Arial";
     ctx.textAlign = "right";
     ctx.fillText(VERSION, canvas.width - 10, 20);
     ctx.textAlign = "left";
   }
-
+  
   function distance(x1, y1, x2, y2) {
     return Math.hypot(x2 - x1, y2 - y1);
   }
-
+  
   function destroyAsteroid(asteroid, index) {
     const fragments = 2;
     if (asteroid.level < 4) {
@@ -523,7 +525,7 @@ window.onload = function() {
     }
     asteroids.splice(index, 1);
   }
-
+  
   function endGame() {
     gameState = "gameover";
     document.getElementById("overlay").style.display = "block";
@@ -553,7 +555,7 @@ window.onload = function() {
       document.getElementById("mobileControls").style.display = "none";
     }
   }
-
+  
   document.getElementById("restartButton").addEventListener("click", function() {
     document.getElementById("overlay").style.display = "block";
     document.getElementById("startScreen").style.display = "block";
