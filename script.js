@@ -1,16 +1,13 @@
 window.onload = function() {
-  // Costante per la versione (opzionale)
-  const VERSION = "Versione: 1.3";
-
-  // Recupera il contenitore della finestra di gioco e il canvas
+  const VERSION = "Versione: 1.4";
+  
+  // Recupera il contenitore e il canvas
   const gameContainer = document.getElementById("gameContainer");
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-  // Imposta le dimensioni del canvas uguali a quelle del contenitore
   canvas.width = gameContainer.clientWidth;
   canvas.height = gameContainer.clientHeight;
 
-  // Stato del gioco: "start", "playing", "gameover", "levelTransition"
   let gameState = "start";
   let numPlayers = 0;
   let players = [];
@@ -19,8 +16,8 @@ window.onload = function() {
   let explosions = [];
   let aliens = [];
   let score = 0;
-  let lives = 3; // Navicelle iniziali per giocatore
-  let currentLevel = 1; // Livello corrente
+  let lives = 3;
+  let currentLevel = 1;
   let lastTime = 0;
   let nextBonusScore = 1000;
   let alienSpawnTimer = 0;
@@ -28,10 +25,8 @@ window.onload = function() {
   let levelTransitionTimer = 0;
   const levelTransitionDuration = 2000;
 
-  // Rilevamento dispositivi touch
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  // Audio via Web Audio API
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   function playSound(frequency, duration, type = "sine", volume = 0.2) {
@@ -279,7 +274,6 @@ window.onload = function() {
     }
   }
 
-  // Stato dei tasti per i controlli (la scelta iniziale avviene tramite i pulsanti HTML)
   const keyState = {};
   window.addEventListener("keydown", e => { keyState[e.key] = true; });
   window.addEventListener("keyup", e => { keyState[e.key] = false; });
@@ -502,7 +496,6 @@ window.onload = function() {
       ctx.fillText("Livello " + currentLevel, canvas.width / 2, canvas.height / 2);
       ctx.textAlign = "left";
     }
-    // Mostra la versione in alto a destra
     ctx.fillStyle = "white";
     ctx.font = "16px Arial";
     ctx.textAlign = "right";
