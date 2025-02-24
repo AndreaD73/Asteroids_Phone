@@ -1,12 +1,14 @@
 window.onload = function() {
-  // Costante per la versione del gioco
-  const VERSION = "Versione: 1.1";
+  // Costante per la versione (opzionale)
+  const VERSION = "Versione: 1.0";
 
-  // Impostazioni canvas e contesto
+  // Recupera il contenitore della finestra di gioco e il canvas
+  const gameContainer = document.getElementById("gameContainer");
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Imposta le dimensioni del canvas uguali a quelle del contenitore
+  canvas.width = gameContainer.clientWidth;
+  canvas.height = gameContainer.clientHeight;
 
   // Stato del gioco: "start", "playing", "gameover", "levelTransition"
   let gameState = "start";
@@ -22,17 +24,16 @@ window.onload = function() {
   let lastTime = 0;
   let nextBonusScore = 1000;
   let alienSpawnTimer = 0;
-  const baseAlienSpawnInterval = 15000; // intervallo di spawn base
+  const baseAlienSpawnInterval = 15000;
   let levelTransitionTimer = 0;
-  const levelTransitionDuration = 2000; // 2 secondi di messaggio livello
+  const levelTransitionDuration = 2000;
 
-  // Rilevamento touch o schermi piccoli
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+  // Rilevamento dispositivi touch
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   // Audio via Web Audio API
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  // Funzione generica per il suono
   function playSound(frequency, duration, type = "sine", volume = 0.2) {
     const oscillator = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();
@@ -45,7 +46,6 @@ window.onload = function() {
     oscillator.stop(audioCtx.currentTime + duration);
   }
 
-  // Suoni specifici aggiornati
   function laserSound() {
     playSound(1000, 0.05, "sawtooth", 0.3);
   }
@@ -62,7 +62,6 @@ window.onload = function() {
     playSound(600, 0.2, "sine", 0.3);
   }
 
-  // Classe Explosion per effetto visivo
   class Explosion {
     constructor(x, y) {
       this.x = x;
@@ -90,7 +89,6 @@ window.onload = function() {
     }
   }
 
-  // Classe Ship
   class Ship {
     constructor(x, y, color, controls) {
       this.x = x;
@@ -163,7 +161,6 @@ window.onload = function() {
     }
   }
 
-  // Classe Bullet (per navicelle e alieni)
   class Bullet {
     constructor(x, y, angle, speed, color, owner) {
       this.x = x;
@@ -192,7 +189,6 @@ window.onload = function() {
     }
   }
 
-  // Classe Asteroid
   class Asteroid {
     constructor(x, y, radius, level = 1) {
       this.x = x;
@@ -239,7 +235,6 @@ window.onload = function() {
     }
   }
 
-  // Classe AlienShip con difficoltà crescente
   class AlienShip {
     constructor() {
       this.width = 40;
@@ -284,12 +279,11 @@ window.onload = function() {
     }
   }
 
-  // Stato dei tasti per i controlli (la scelta iniziale avviene tramite pulsanti HTML)
+  // Stato dei tasti per i controlli (la scelta iniziale avviene tramite i pulsanti HTML)
   const keyState = {};
   window.addEventListener("keydown", e => { keyState[e.key] = true; });
   window.addEventListener("keyup", e => { keyState[e.key] = false; });
 
-  // Funzione per iniziare il gioco (chiamata dai pulsanti della schermata di start)
   function startGameWithPlayers(n) {
     numPlayers = n;
     console.log("Avvio gioco con " + n + " giocatore/i");
@@ -327,11 +321,9 @@ window.onload = function() {
     requestAnimationFrame(gameLoop);
   }
 
-  // Gestione pulsanti per la selezione del numero di giocatori
   document.getElementById("onePlayer").addEventListener("click", () => startGameWithPlayers(1));
   document.getElementById("twoPlayers").addEventListener("click", () => startGameWithPlayers(2));
 
-  // Imposta i listener per i controlli mobile
   function setupMobileControls() {
     const mobileLeft = document.getElementById("mobileLeft");
     const mobileRight = document.getElementById("mobileRight");
@@ -360,7 +352,6 @@ window.onload = function() {
   }
   if (isTouchDevice || window.innerWidth < 768) setupMobileControls();
 
-  // Funzione per iniziare un nuovo livello
   function startLevel() {
     const numAsteroids = 4 + currentLevel;
     for (let i = 0; i < numAsteroids; i++) {
@@ -373,7 +364,6 @@ window.onload = function() {
     levelTransitionTimer = levelTransitionDuration;
   }
 
-  // Loop di gioco
   function gameLoop(timestamp) {
     const deltaTime = timestamp - lastTime;
     lastTime = timestamp;
