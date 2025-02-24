@@ -7,18 +7,16 @@ body {
   color: white;
 }
 
-/* Contenitore della finestra di gioco con rapporto 16:9, centrato */
 #gameContainer {
   position: relative;
   width: 90vw;
   height: calc(90vw * 9 / 16);
   max-width: 100%;
-  margin: 20px auto; /* Margine superiore/inferiore per distanziare dal bordo dello schermo */
+  margin: 20px auto;
   background-color: black;
   border: 2px solid #444;
 }
 
-/* Il canvas occupa tutto il contenitore */
 #gameCanvas {
   display: block;
   width: 100%;
@@ -53,45 +51,15 @@ body {
   margin: 10px;
 }
 
-/* Controlli mobile: posizionati relativamente al contenitore di gioco */
+/* Controlli mobile all’interno del contenitore di gioco */
 #mobileControls {
   position: absolute;
   bottom: 20px;
   left: 20px;
   right: 20px;
   z-index: 200;
+  display: none;
 }
 
 /* Pulsanti mobile ingranditi e con margini dai bordi */
-.mobile-button {
-  background-color: rgba(255, 255, 255, 0.3);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 32px;
-  padding: 20px 26px;
-  margin: 10px;
-}
-
-/* Posizionamento dei pulsanti: frecce in basso a destra, sparo in basso a sinistra */
-#mobileArrows {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#mobileRotate {
-  display: flex;
-  justify-content: space-between;
-  width: 240px;
-  margin-top: 10px;
-}
-
-#mobileShoot {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-}
+.mo
