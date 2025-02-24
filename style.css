@@ -7,8 +7,22 @@ body {
   color: white;
 }
 
+/* Contenitore della finestra di gioco con rapporto 16:9, centrato */
+#gameContainer {
+  position: relative;
+  width: 90vw;
+  height: calc(90vw * 9 / 16);
+  max-width: 100%;
+  margin: 20px auto; /* Margine superiore/inferiore per distanziare dal bordo dello schermo */
+  background-color: black;
+  border: 2px solid #444;
+}
+
+/* Il canvas occupa tutto il contenitore */
 #gameCanvas {
   display: block;
+  width: 100%;
+  height: 100%;
   background-color: black;
 }
 
@@ -21,7 +35,7 @@ body {
   height: 100%;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 10;
+  z-index: 100;
 }
 
 #overlay h1 {
@@ -39,30 +53,29 @@ body {
   margin: 10px;
 }
 
-/* Contenitore dei controlli mobile */
+/* Controlli mobile: posizionati relativamente al contenitore di gioco */
 #mobileControls {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  display: none; /* Di default nascosto, verrà mostrato con media query */
+  left: 20px;
+  right: 20px;
+  z-index: 200;
 }
 
-/* Pulsanti mobile base */
+/* Pulsanti mobile ingranditi e con margini dai bordi */
 .mobile-button {
   background-color: rgba(255, 255, 255, 0.3);
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
   font-size: 32px;
-  padding: 20px;
+  padding: 20px 26px;
   margin: 10px;
 }
 
-/* Posiziona il gruppo di frecce in basso a destra */
+/* Posizionamento dei pulsanti: frecce in basso a destra, sparo in basso a sinistra */
 #mobileArrows {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   right: 20px;
   display: flex;
@@ -73,20 +86,12 @@ body {
 #mobileRotate {
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  width: 240px;
   margin-top: 10px;
 }
 
-/* Pulsante per sparare in basso a sinistra */
 #mobileShoot {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 20px;
-}
-
-/* Mostra i controlli mobile se lo schermo è piccolo o se il dispositivo supporta il touch */
-@media (max-width: 768px) {
-  #mobileControls {
-    display: block;
-  }
 }
