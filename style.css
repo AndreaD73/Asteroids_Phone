@@ -7,20 +7,11 @@ body {
   color: white;
 }
 
-#gameContainer {
-  position: relative;
-  width: 90vw;
-  height: calc(90vw * 9 / 16);
-  max-width: 100%;
-  margin: 20px auto;
-  background-color: black;
-  border: 2px solid #444;
-}
-
+/* Il canvas occupa l'intero schermo */
 #gameCanvas {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: black;
 }
 
@@ -29,15 +20,15 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 100;
+  z-index: 10;
 }
 
 #overlay h1 {
-  margin-top: 20%;
+  margin-top: 30%;
   font-size: 48px;
 }
 
@@ -51,15 +42,55 @@ body {
   margin: 10px;
 }
 
-/* Controlli mobile all’interno del contenitore di gioco */
+/* Controlli mobile: posizionati fissi in basso */
 #mobileControls {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   left: 20px;
   right: 20px;
-  z-index: 200;
+  z-index: 20;
   display: none;
 }
 
-/* Pulsanti mobile ingranditi e con margini dai bordi */
-.mo
+/* Mostra i controlli mobile se il dispositivo è touch o lo schermo è piccolo */
+@media (max-width: 768px) {
+  #mobileControls {
+    display: block;
+  }
+}
+
+/* Stile dei pulsanti mobile: più grandi e distanziati dai bordi */
+.mobile-button {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 32px;
+  padding: 20px 26px;
+  margin: 15px;
+}
+
+/* Posiziona le frecce in basso a destra */
+#mobileArrows {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Gruppo frecce per rotazione */
+#mobileRotate {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+  margin-top: 10px;
+}
+
+/* Pulsante sparo in basso a sinistra */
+#mobileShoot {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
