@@ -1,6 +1,6 @@
 window.onload = function() {
   // Costante per la versione (opzionale)
-  const VERSION = "Versione: 1.0";
+  const VERSION = "Versione: 1.5";
   
   // Imposta il canvas a dimensioni schermo intero
   const canvas = document.getElementById("gameCanvas");
