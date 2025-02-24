@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Asteroids Arcade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Overlay per le schermate iniziali e di game over -->
+  <div id="overlay">
+    <div id="startScreen">
+      <h1>INSERT COIN</h1>
+      <p>Scegli il numero di giocatori:</p>
+      <button id="onePlayer">1 Giocatore</button>
+      <button id="twoPlayers">2 Giocatori</button>
+    </div>
+    <div id="gameOverScreen" style="display: none;">
+      <h1>GAME OVER</h1>
+      <p id="finalScore"></p>
+      <button id="restartButton">Ricomincia</button>
+    </div>
+  </div>
+  
+  <!-- Canvas per il gioco -->
+  <canvas id="gameCanvas"></canvas>
+  
+  <!-- Controlli mobile: rimuovo il display:none in modo che siano sempre presenti sui dispositivi touch -->
+  <div id="mobileControls">
+    <div id="mobileArrows">
+      <button id="mobileThrust" class="mobile-button">↑</button>
+      <div id="mobileRotate">
+        <button id="mobileLeft" class="mobile-button">←</button>
+        <button id="mobileRight" class="mobile-button">→</button>
+      </div>
+    </div>
+    <button id="mobileShoot" class="mobile-button">Sparo</button>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
